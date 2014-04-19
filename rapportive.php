@@ -2,12 +2,12 @@
 
 /**
  * Rapportive API class
- * 
+ *
  * A small library to fetch user informations from rapportive API.
- * This is not an official library and shouldn't be used any production level.
+ * This is not an official library and shouldn't be used for any production level.
  * It's just for fun and the author doesn't take any lialibility/responsibility
- * of any kind.
- * 
+ * of any kind whatsoever.
+ *
  * @author Tareq Hasan <tareq@wedevs.com>
  * @link http://tareq.weDevs.com
  */
@@ -21,7 +21,7 @@ class WeDevs_Rapportive {
 
     /**
      * Fetch the information and return the output
-     * 
+     *
      * @return array
      */
     public function get_data() {
@@ -34,12 +34,12 @@ class WeDevs_Rapportive {
 
     /**
      * Get session key
-     * 
+     *
      * To send every request to rapportive API, there needs to be an session key.
      * It doesn't have to be unique for every request, but a valid session key
      * from any email. You can use the same session key for fetching many users
      * info. So caching the session key would be good idea.
-     * 
+     *
      * @return string
      */
     private function get_session() {
@@ -50,7 +50,10 @@ class WeDevs_Rapportive {
 
     /**
      * Fetch user information via cURL
-     * 
+     *
+     * We are fetching the data by passing a session key as header and pretending to
+     * send the request via Gmail interface.
+     *
      * @param string $session_token
      * @return string
      */
@@ -76,7 +79,7 @@ class WeDevs_Rapportive {
 
     /**
      * Format the information fetched
-     * 
+     *
      * @param string $info
      * @return array
      */
@@ -84,11 +87,11 @@ class WeDevs_Rapportive {
         $info = json_decode( $info );
 
         $formatted = array(
-            'name' => isset( $info->contact->name ) ? $info->contact->name : '',
+            'name'     => isset( $info->contact->name ) ? $info->contact->name : '',
             'headline' => isset( $info->contact->headline ) ? $info->contact->headline : '',
-            'avatar' => isset( $info->contact->image_url_raw ) ? $info->contact->image_url_raw : '',
+            'avatar'   => isset( $info->contact->image_url_raw ) ? $info->contact->image_url_raw : '',
             'location' => isset( $info->contact->location ) ? $info->contact->location : '',
-            'socials' => array(),
+            'socials'  => array(),
         );
 
         if ( isset( $info->contact->memberships ) ) {
